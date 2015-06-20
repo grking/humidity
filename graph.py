@@ -81,7 +81,9 @@ class Graph(object):
 				'LINE1:tempmax#ff0000',
 				'LINE1:humiditymin#0000ff',
 				'AREA:humidityrange#0000ff88::STACK',
-				'LINE1:humiditymax#0000ff'
+				'LINE1:humiditymax#0000ff',
+				'LINE2:temp#ff0000',
+				'LINE2:humidity#0000ff'
 			]
 		)
 
