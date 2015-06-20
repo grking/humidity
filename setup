@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Dependancies
+sudo apt-get install \
+  rrdtool \
+  python-dev \
+  build-essential \
+  python-rrdtool \
+  apache2 
+
+# AM2302 library
+if [ ! -d "adafruit" ]; then
+  git clone https://github.com/adafruit/Adafruit_Python_DHT.git adafruit
+  cd adafruit
+  sudo python setup.py --force-pi install
+else
+  echo "Found AM2302 library"
+fi
+
