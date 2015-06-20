@@ -46,7 +46,7 @@ class Graph(object):
 
 	def draw(self):
 
-		rrdtool.graph( [ '/var/www/graph-1-hour.png' ] +
+		rrdtool.graph( [ '/var/www/%s-1-hour.png' % self._sensor.name] +
 			self.options() + [
 				'--title', '%s (1 Hour)' % self._sensor.name,
 				'--start', '-3600',
@@ -58,7 +58,7 @@ class Graph(object):
 			]
 		)
 
-		rrdtool.graph( [ '/var/www/graph-24-hours.png' ] +
+		rrdtool.graph( [ '/var/www/%s-24-hours.png' % self._sensor.name] +
 			self.options() + [
 				'--title', '%s (24 Hours)' % self._sensor.name,
 				'--start', '-86400',
@@ -71,7 +71,7 @@ class Graph(object):
 			]
 		)
 
-		rrdtool.graph( [ '/var/www/graph-7-days.png' ] +
+		rrdtool.graph( [ '/var/www/%s-7-days.png' % self._sensor.name] +
 			self.options() + [
 				'--title', '%s (7 Days)' % self._sensor.name,
 				'--start', '-604800',
