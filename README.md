@@ -19,9 +19,29 @@ Install dependencies with:
 sudo ./setup
 ```
 
-Other options:
-```bash
---humiditymin <min>     - Minimum humidity in percent (output pin goes high when lower than this)
---humiditymax <max>     - Maximum humidity in percent (output pin goes low when higher than this)
+```
+Usage: control.py [-h] [--humiditymin HUMIDITYMIN] [--humiditymax HUMIDITYMAX]
+                  [--graphupdate GRAPHUPDATE] [--graphdir GRAPHDIR]
+                  sensor_pin output_pin
+
+Environment control
+
+positional arguments:
+  sensor_pin            The GPIO pin number which the AM2302 data line is
+                        connected to
+  output_pin            The GPIO pin number which the output is connected to
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --humiditymin HUMIDITYMIN
+                        Minimum humidity in percent. Output goes high when
+                        humidity falls to this level. (default: 95)
+  --humiditymax HUMIDITYMAX
+                        Maximum humidity in percent. Output goes low when
+                        humidity rises to this level. (default: 95)
+  --graphupdate GRAPHUPDATE
+                        How often we generate graphs in seconds. (default: 10)
+  --graphdir GRAPHDIR   Full pathname of directory into which graphs are
+                        generated. (default: /var/www)
 ```
 

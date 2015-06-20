@@ -10,11 +10,18 @@ import argparse
 
 # Grab our command line args
 parser = argparse.ArgumentParser( description = "Environment control")
-parser.add_argument('sensor_pin', type=int, help = "GPIO input pin")
-parser.add_argument('output_pin', type=int, help = "GPIO output pin")
-parser.add_argument('--humiditymin', type=int, action="store", default=95)
-parser.add_argument('--humiditymax', type=int, action="store", default=95)
-parser.add_argument('--graphupdate', type=int, action="store", default=10)
+parser.add_argument('sensor_pin', type=int,
+	help="The GPIO pin number which the AM2302 data line is connected to")
+parser.add_argument('output_pin', type=int,
+	help="The GPIO pin number which the output is connected to")
+parser.add_argument('--humiditymin', type=int, action="store", default=95,
+	help="Minimum humidity in percent.  Output goes high when humidity falls to this level. (default: %(default)s)")
+parser.add_argument('--humiditymax', type=int, action="store", default=95,
+	help="Maximum humidity in percent.  Output goes low when humidity rises to this level. (default: %(default)s)")
+parser.add_argument('--graphupdate', type=int, action="store", default=10,
+	help="How often we generate graphs in seconds. (default: %(default)s)")
+parser.add_argument('--graphdir', type=str, action="store", default="/var/www",
+	help="Full pathname of directory into which graphs are generated. (default: %(default)s)")
 args = parser.parse_args()
 
 # Output
@@ -24,7 +31,7 @@ output = Output(args.output_pin)
 sensor = Sensor(args.sensor_pin, output)
 
 # Graphs
-graph = Graph(sensor)
+graph = Graph(args.graphdir, sensor)
 last_drawn = datetime.now()
 
 while True:

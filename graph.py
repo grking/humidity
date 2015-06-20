@@ -41,12 +41,13 @@ class Graph(object):
 			'CDEF:temprange=tempmax,tempmin,-',
 		]
 
-	def __init__(self, sensor):
+	def __init__(self, path, sensor):
 		self._sensor = sensor
+		self._path = path
 
 	def draw(self):
 
-		rrdtool.graph( [ '/var/www/%s-1-hour.png' % self._sensor.name] +
+		rrdtool.graph( [ '%s/%s-1-hour.png' % (self._path, self._sensor.name)] +
 			self.options() + [
 				'--title', '%s (1 Hour)' % self._sensor.name,
 				'--start', '-3600',
@@ -58,7 +59,7 @@ class Graph(object):
 			]
 		)
 
-		rrdtool.graph( [ '/var/www/%s-24-hours.png' % self._sensor.name] +
+		rrdtool.graph( [ '%s/%s-24-hours.png' % (self._path, self._sensor.name)] +
 			self.options() + [
 				'--title', '%s (24 Hours)' % self._sensor.name,
 				'--start', '-86400',
@@ -71,7 +72,7 @@ class Graph(object):
 			]
 		)
 
-		rrdtool.graph( [ '/var/www/%s-7-days.png' % self._sensor.name] +
+		rrdtool.graph( [ '%s/%s-7-days.png' % (self._path, self._sensor.name)] +
 			self.options() + [
 				'--title', '%s (7 Days)' % self._sensor.name,
 				'--start', '-604800',
