@@ -25,7 +25,6 @@ class Output(object):
 				return			
 		GPIO.output(self.pin, value)
 		self._state = value
-		print "State change: output "+str(self._state)
 		self._lastchange = datetime.now()
 
 	def __init__(self, pin):

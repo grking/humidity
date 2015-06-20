@@ -29,10 +29,11 @@ class Sensor(Thread):
 	def name(self):
 		return "sensor-pin-%s" % self.pin
 
-	def __init__(self, pin):
+	def __init__(self, pin, output):
 		super(Sensor, self).__init__()
 		self.sensor = Adafruit_DHT.AM2302
 		self.pin = pin
+		self._output = output
 		self.terminated = False
 		self.daemon = True
 		self._humidity = 0.0
@@ -46,7 +47,8 @@ class Sensor(Thread):
 			return
 		datasources = [
 			'DS:temperature:GAUGE:10:-20:50',
-			'DS:humidity:GAUGE:10:0:100'
+			'DS:humidity:GAUGE:10:0:100',
+			'DS:state:GAUGE:10:0:1'
 		]
 		rrdtool.create(self.name + '.rrd',
 			# 5 second update cycle
@@ -80,7 +82,8 @@ class Sensor(Thread):
 				self._temperature = temperature
 				self._humidity = humidity
 				# Save to db
-				rrdtool.update(self.name+'.rrd', 'N:{0:0.1f}:{1:0.1f}'.format(temperature, humidity))
+				state = int(self._output.state)
+				rrdtool.update(self.name+'.rrd', 'N:{0:0.1f}:{1:0.1f}:{2}'.format(temperature, humidity, state))
 			# Sensor has minimum refresh of 2 seconds
 			time.sleep(2)
 

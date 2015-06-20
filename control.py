@@ -14,13 +14,14 @@ parser.add_argument('sensor_pin', type=int, help = "GPIO input pin")
 parser.add_argument('output_pin', type=int, help = "GPIO output pin")
 parser.add_argument('--humiditymin', type=int, action="store", default=95)
 parser.add_argument('--humiditymax', type=int, action="store", default=95)
+parser.add_argument('--graphupdate', type=int, action="store", default=10)
 args = parser.parse_args()
-
-# Sensor 
-sensor = Sensor(args.sensor_pin)
 
 # Output
 output = Output(args.output_pin)
+
+# Sensor - and link it to the output
+sensor = Sensor(args.sensor_pin, output)
 
 # Graphs
 graph = Graph(sensor)
@@ -42,7 +43,7 @@ while True:
 	time.sleep(2)
 
 	# Update graphs occasionally
-	if (datetime.now() - last_drawn).seconds > 10:
+	if (datetime.now() - last_drawn).seconds > args.graphupdate:
 		last_drawn = datetime.now()
 		graph.draw()
 

@@ -6,7 +6,7 @@ class Graph(object):
 
 	def options(self):
 		return [
-			'--width', '900',
+			'--width', '750',
 			'--height', '400',
 			'--imgformat', 'PNG',
 			'--lazy',
@@ -32,6 +32,8 @@ class Graph(object):
 			'DEF:humidity=%s.rrd:humidity:AVERAGE' % self._sensor.name,
 			'DEF:humiditymin=%s.rrd:humidity:MIN' % self._sensor.name,
 			'DEF:humiditymax=%s.rrd:humidity:MAX' % self._sensor.name,
+			'DEF:state=%s.rrd:state:MAX' % self._sensor.name,
+			'CDEF:output=state,10,*',
 			'CDEF:humidityrange=humiditymax,humiditymin,-',
 			'CDEF:temp=rawtemp,3,*',
 			'CDEF:tempmin=rawtempmin,3,*',
@@ -48,10 +50,11 @@ class Graph(object):
 			self.options() + [
 				'--title', '%s (1 Hour)' % self._sensor.name,
 				'--start', '-3600',
-				'AREA:humidity#3C2DE0:"Humidity"',
-				'AREA:temp#D60909:"Temperature"',
+				'AREA:humidity#3C2DE0:Humidity',
+				'AREA:temp#D60909:Temperature',
 				'LINE2:temp#ffffffff',
-				'LINE2:humidity#000000ff'
+				'LINE2:humidity#000000ff',
+				'AREA:output#00000055:Output On/Off'
 			]
 		)
 
