@@ -1,0 +1,4 @@
+#!/bin/bash
+cd /home/pi/control
+sudo /home/pi/control/control.py 17 18
+

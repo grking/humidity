@@ -69,10 +69,10 @@ class Sensor(Thread):
 			'--step', '5',
 			'--no-overwrite',
 			datasources,
-			# 1 hour in 10 second intervals
-			'RRA:AVERAGE:0.5:2:360',
-			'RRA:MIN:0.5:2:360',
-			'RRA:MAX:0.5:2:360',
+			# 1 hour in 30 second intervals
+			'RRA:AVERAGE:0.5:6:120',
+			'RRA:MIN:0.5:6:120',
+			'RRA:MAX:0.5:6:120',
 			# 24 hours in 1 minute intervals
 			'RRA:AVERAGE:0.5:12:1440',
 			'RRA:MIN:0.5:12:1440',
