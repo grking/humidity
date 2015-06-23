@@ -67,7 +67,7 @@ while True:
 		cycleposition += 3
 		starttime = datetime.now()
 	# Infinitely wrap our cycle
-	if cycleposition > len(cycle):
+	if cycleposition >= len(cycle):
 		cycleposition = 0
 	# Grab current cycle parameters
 	humiditymin = cycle[cycleposition+1]
@@ -84,5 +84,7 @@ while True:
 	# Update graphs occasionally
 	if (datetime.now() - last_drawn).seconds > args.graphupdate:
 		last_drawn = datetime.now()
+		sensor.graph = False
 		graph.draw()
+		sensor.graph = True
 
