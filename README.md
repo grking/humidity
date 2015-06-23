@@ -20,8 +20,9 @@ sudo ./setup
 ```
 
 ```
-Usage: control.py [-h] [--humiditymin HUMIDITYMIN] [--humiditymax HUMIDITYMAX]
+age: control.py [-h] [--humiditymin HUMIDITYMIN] [--humiditymax HUMIDITYMAX]
                   [--graphupdate GRAPHUPDATE] [--graphdir GRAPHDIR]
+                  [--cycle CYCLE]
                   sensor_pin output_pin
 
 Environment control
@@ -40,8 +41,10 @@ optional arguments:
                         Maximum humidity in percent. Output goes low when
                         humidity rises to this level. (default: 95)
   --graphupdate GRAPHUPDATE
-                        How often we generate graphs in seconds. (default: 10)
+                        How often we generate graphs in seconds. (default: 60)
   --graphdir GRAPHDIR   Full pathname of directory into which graphs are
                         generated. (default: /var/www)
+  --cycle CYCLE         Specifiy a humidity cycle:
+                        minutes,min_humidity,max_humidity,[minutes,min,max]...
 ```
 
